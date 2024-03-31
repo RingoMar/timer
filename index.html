@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="shortcut icon" href="favicon.ico" type="image/x-icon">
+    <title>OBS Count Up Timer</title>
+    <style>
+        body {
+            background-color: #212121;
+            font-family: Arial, sans-serif;
+            margin: 0;
+            color: white;
+        }
+    </style>
+</head>
+
+<body>
+    <h1 id="timer">00:00:00</h1>
+    <script>
+        function pad(num) {
+            return (num < 10 ? '0' : '') + num;
+        }
+
+        const timestampParam = new URLSearchParams(window.location.search).get('time');
+        var startTimeUnix = timestampParam ? Date.parse(timestampParam) / 1000 : 0;
+
+        function updateTimer() {
+            var currentTime = Math.floor(Date.now() / 1000);
+            var elapsedTime = currentTime - startTimeUnix;
+
+            var hours = Math.floor(elapsedTime / 3600);
+            var minutes = Math.floor((elapsedTime % 3600) / 60);
+            var seconds = elapsedTime % 60;
+
+            var timerElement = document.getElementById('timer');
+            timerElement.textContent = pad(hours) + 'h :' + pad(minutes) + 'm :' + pad(seconds) + "s";
+        }
+
+        updateTimer();
+
+        setInterval(updateTimer, 1000);
+    </script>
+</body>
+
+</html>
