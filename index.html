@@ -20,11 +20,11 @@
     <h1 id="timer">00:00:00</h1>
     <script>
         function pad(num) {
-            return (num < 10 ? '0' : '') + num;
+            return (num < 10 & !num > 0 ? '0' : '') + Math.round(num);
         }
 
         const timestampParam = new URLSearchParams(window.location.search).get('time');
-        var startTimeUnix = timestampParam ? Date.parse(timestampParam) / 1000 : 0;
+        var startTimeUnix = timestampParam ? Date.parse(timestampParam) / 1000 :  Date.parse(new Date().toISOString()) / 1000;
 
         function updateTimer() {
             var currentTime = Math.floor(Date.now() / 1000);
