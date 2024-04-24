@@ -2,29 +2,47 @@
 <html lang="en">
 
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="shortcut icon" href="favicon.ico" type="image/x-icon">
-    <title>OBS Count Up Timer</title>
-    <style>
-        body {
-            background-color: #212121;
-            font-family: Arial, sans-serif;
-            margin: 0;
-            color: white;
-        }
-    </style>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="language" content="EN" />
+    <meta name="keywords" content="elapsed, obs, timer, countup, count, " />
+    <meta name="description" content="An elapse time counter for OBS" />
+    <meta name="subject" content="Elapse Time" />
+    <meta name="copyright" content="RingoMar" />
+    <meta name="url" content="ringomar.github.io/timer" />
+    <meta name="rating" content="General" />
+    <meta name="author" content="ringomar, github.com/ringomar" />
+    <link rel="shortcut icon" href="favicon.ico" type="image/x-icon" />
+    <title>Elapsed Timer</title>
+    <link rel="stylesheet" href="style.css">
 </head>
 
 <body>
-    <h1 id="timer">00:00:00</h1>
+    <div class="container">
+        <div class="hours_time num">00</div>
+        <div class="min_time num">00</div>
+        <div class="sec_time num">00</div>
+        <div class="hours telem">HOURS</div>
+        <div class="min telem">MINUTES</div>
+        <div class="sec telem">SECONDS</div>
+    </div>
+
     <script>
+        const h = document.querySelector(".hours_time");
+        const m = document.querySelector(".min_time");
+        const s = document.querySelector(".sec_time");
         function pad(num) {
-            return (num < 10 & !num > 0 ? '0' : '') + Math.round(num);
+            if (num === -1) {
+                return "00";
+            } else {
+                return (num < 10 ? "0" : "") + Math.round(num);
+            }
         }
 
-        const timestampParam = new URLSearchParams(window.location.search).get('time');
-        var startTimeUnix = timestampParam ? Date.parse(timestampParam) / 1000 :  Date.parse(new Date().toISOString()) / 1000;
+        const timestampParam = new URLSearchParams(window.location.search).get("time");
+        var startTimeUnix = timestampParam
+            ? Date.parse(timestampParam) / 1000
+            : Date.parse(new Date().toISOString()) / 1000;
 
         function updateTimer() {
             var currentTime = Math.floor(Date.now() / 1000);
@@ -34,8 +52,9 @@
             var minutes = Math.floor((elapsedTime % 3600) / 60);
             var seconds = elapsedTime % 60;
 
-            var timerElement = document.getElementById('timer');
-            timerElement.textContent = pad(hours) + 'H ' + pad(minutes) + 'M ' + pad(seconds) + "S";
+            h.textContent = pad(hours);
+            m.textContent = pad(minutes);
+            s.textContent = pad(seconds);
         }
 
         updateTimer();

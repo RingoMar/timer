@@ -1,0 +1,52 @@
+body {
+    background-color: #212121;
+    font-family: Arial, sans-serif;
+    margin: 0;
+    color: white;
+}
+
+.container {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    grid-template-rows: 1.5fr 0.5fr;
+    gap: 0px 0px;
+    grid-auto-flow: row;
+    grid-template-areas:
+        "hours_time min_time sec_time"
+        "hours min sec";
+    justify-content: space-evenly;
+}
+
+.hours_time {
+    grid-area: hours_time;
+}
+
+.min_time {
+    grid-area: min_time;
+}
+
+.sec_time {
+    grid-area: sec_time;
+}
+
+.hours {
+    grid-area: hours;
+}
+
+.min {
+    grid-area: min;
+}
+
+.sec {
+    grid-area: sec;
+}
+
+.num {
+    text-align: center;
+    font-size: 5em;
+}
+
+.telem {
+    text-align: center;
+    font-size: 1.2em;
+}

@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="language" content="EN" />
+    <meta name="keywords" content="elapsed, obs, timer, countup, count, " />
+    <meta name="description" content="An elapse time counter for OBS" />
+    <meta name="subject" content="Elapse Time" />
+    <meta name="copyright" content="RingoMar" />
+    <meta name="url" content="ringomar.github.io/timer" />
+    <meta name="rating" content="General" />
+    <meta name="author" content="ringomar, github.com/ringomar" />
+    <link rel="shortcut icon" href="favicon.ico" type="image/x-icon" />
+    <title>Remaining Timer</title>
+    <link rel="stylesheet" href="style.css" />
+</head>
+
+<body>
+    <div class="container">
+        <div class="hours_time num">00</div>
+        <div class="min_time num">00</div>
+        <div class="sec_time num">00</div>
+        <div class="hours telem">HOURS</div>
+        <div class="min telem">MINUTES</div>
+        <div class="sec telem">SECONDS</div>
+    </div>
+
+    <script>
+        const s = document.querySelector(".sec_time");
+        const m = document.querySelector(".min_time");
+        const h = document.querySelector(".hours_time");
+
+        function pad(num) {
+            return (num < 10 ? "0" : "") + num;
+        }
+
+        function updateTimer() {
+            const timestampParam = new URLSearchParams(window.location.search).get(
+                "time"
+            );
+            var targetTimeUnix = timestampParam
+                ? Date.parse(timestampParam) / 1000
+                : Date.now() / 1000;
+
+            var currentTime = Math.floor(Date.now() / 1000);
+            var remainingTime = Math.max(0, targetTimeUnix - currentTime);
+
+            var hours = Math.floor(remainingTime / 3600);
+            var minutes = Math.floor((remainingTime % 3600) / 60);
+            var seconds = remainingTime % 60;
+
+            h.textContent = pad(hours);
+            m.textContent = pad(minutes);
+            s.textContent = pad(seconds);
+        }
+
+        updateTimer();
+        setInterval(updateTimer, 1000);
+    </script>
+</body>
+
+</html>
