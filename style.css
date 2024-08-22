@@ -44,10 +44,10 @@ body {
 
 .num {
     text-align: center;
-    font-size: 12em;
+    font-size: 9.5em;
 }
 
 .telem {
     text-align: center;
-    font-size: calc(0.2 * 10em);
+    font-size: calc(0.2 * 9.5em);
 }
