@@ -47,6 +47,32 @@
     </div>
 
     <script>
+        // configurations
+
+        /*
+        Stroke: Number
+        Set the outline of the numbers & text of the timer
+        */
+
+        document.addEventListener("DOMContentLoaded", function () {
+            const timestampStroke = new URLSearchParams(window.location.search).get(
+                "stroke"
+            );
+            const containerSelect = document.querySelectorAll(".num");
+
+            const strokeAmount =
+                timestampStroke === null || isNaN(timestampStroke) || timestampStroke > 10
+                    ? "2"
+                    : timestampStroke;
+            containerSelect.forEach(i => {
+
+                i.style.webkitTextStroke = `${strokeAmount}px black`;
+                i.style.textStroke = `${strokeAmount}px black`;
+            });
+        });
+    </script>
+
+    <script>
         const h = document.querySelector(".hours_time");
         const m = document.querySelector(".min_time");
         const s = document.querySelector(".sec_time");
