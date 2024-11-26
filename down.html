@@ -14,11 +14,11 @@
     <meta name="author" content="ringomar, github.com/ringomar" />
     <link rel="shortcut icon" href="favicon.ico" type="image/x-icon" />
     <title>Remaining Timer</title>
-    <link rel="stylesheet" href="style.css" />
+    <link rel="stylesheet" href="styles_down.css" />
 </head>
 
 <body>
-    <div class="container">
+    <div class="container shadow">
         <div class="hours_time num">00</div>
         <div class="min_time num">00</div>
         <div class="sec_time num">00</div>
@@ -28,12 +28,69 @@
     </div>
 
     <script>
+        // configurations
+
+        /*
+        Stroke: Number
+        Set the outline of the numbers & text of the timer
+        */
+
+        document.addEventListener("DOMContentLoaded", function () {
+            const timestampStroke = new URLSearchParams(window.location.search).get(
+                "stroke"
+            );
+            const resetWhite = new URLSearchParams(window.location.search).get(
+                "white"
+            );
+
+            const containerSelect = document.querySelectorAll(".num");
+            const containers = document.querySelectorAll(".container");
+
+
+
+            if (resetWhite === "true") {
+                containers.forEach(i => {
+                    i.classList.remove('shadow');
+                    
+                    i.style.webkitTextStroke = "0 !important";
+                    i.style.textStroke = "0 !important";
+                });
+
+            } else {
+
+                const strokeAmount =
+                    timestampStroke === null || isNaN(timestampStroke) || timestampStroke > 10
+                        ? "2"
+                        : timestampStroke;
+                containerSelect.forEach(i => {
+
+                    i.style.webkitTextStroke = `${strokeAmount}px black`;
+                    i.style.textStroke = `${strokeAmount}px black`;
+                });
+            }
+        });
+    </script>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
+            const whiteparams = new URLSearchParams(window.location.search).get(
+                "white"
+            );
+
+            if (whiteparams) {
+                document.getElementsByClassName("container")[0].style.textShadow = "None !important";
+            }
+        });
+
+    </script>
+
+    <script>
         const s = document.querySelector(".sec_time");
         const m = document.querySelector(".min_time");
         const h = document.querySelector(".hours_time");
 
         function pad(num) {
-            return (num < 10 ? "0" : "") + num;
+            return ((num < 10 ? "0" : "") + num);
         }
 
         function updateTimer() {
