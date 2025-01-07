@@ -1,0 +1,17 @@
+{
+    "build": { "dockerfile": "Dockerfile" },
+  
+    "customizations": {
+      "vscode": {
+        "extensions": [
+            "esbenp.prettier-vscode",
+            "Zignd.html-css-class-completion",
+            "riussi.code-stats-vscode"
+        ]
+      }
+    },
+  
+    "forwardPorts": [4449],
+
+    "postCreateCommand": "exec jekyll serve"
+  }

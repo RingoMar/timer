@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="language" content="EN" />
+    <meta name="keywords"
+        content="elapsed, obs, timer, countup, count, kai, kai cenat, elden ring, sunny, feelssunnyman, stream, streamer, chat, overlay, udner cam, white, count, countup  " />
+    <meta name="description" content="An elapse time counter for OBS" />
+    <meta name="subject" content="Elapse Time" />
+    <meta name="copyright" content="RingoMar" />
+    <meta name="url" content="ringomar.github.io/timer" />
+    <meta data-rh="true" name="twitter:card" content="summary_large_image" />
+    <meta data-rh="true" property="og:image"
+        content="https://ringomar.github.io/TheTimekeeper/img/docusaurus-social-card.jpg" />
+    <meta data-rh="true" name="twitter:image"
+        content="https://ringomar.github.io/TheTimekeeper/img/docusaurus-social-card.jpg" />
+    <meta data-rh="true" property="og:url" content="https://ringomar.github.io/timer" />
+    <meta data-rh="true" property="og:locale" content="en" />
+    <meta name="rating" content="General" />
+    <meta name="author" content="ringomar, github.com/ringomar" />
+    <link rel="shortcut icon" href="favicon.ico" type="image/x-icon" />
+    <title>Elapsed Timer</title>
+    <link rel="stylesheet" href="extend.css" />
+
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-0GS2KLZXCG"></script>
+    <script>
+        window.dataLayer = window.dataLayer || [];
+        function gtag() {
+            dataLayer.push(arguments);
+        }
+        gtag("js", new Date());
+
+        gtag("config", "G-0GS2KLZXCG");
+    </script>
+</head>
+
+<body>
+    <div class="container">
+        <div class="tcontainer hidden daysContaienr">
+            <div class="days_time num">00</div>
+            <div class="days telem">DAYS</div>
+        </div>
+        <div class="tcontainer">
+            <div class="hours_time num">00</div>
+            <div class="hours telem">HOURS</div>
+        </div>
+        <div class="tcontainer">
+            <div class="min_time num">00</div>
+            <div class="min telem">MINUTES</div>
+        </div>
+        <div class="tcontainer">
+            <div class="sec_time num">00</div>
+            <div class="sec telem">SECONDS</div>
+        </div>
+    </div>
+
+    <script>
+        // configurations
+
+        /*
+            Stroke: Number
+            Set the outline of the numbers & text of the timer
+            */
+
+        document.addEventListener("DOMContentLoaded", function () {
+            const timestampStroke = new URLSearchParams(window.location.search).get(
+                "stroke"
+            );
+            const containerSelect = document.querySelectorAll(".num");
+
+            const strokeAmount =
+                timestampStroke === null ||
+                    isNaN(timestampStroke) ||
+                    timestampStroke > 10
+                    ? "2"
+                    : timestampStroke;
+            containerSelect.forEach((i) => {
+                i.style.webkitTextStroke = `${strokeAmount}px black`;
+                i.style.textStroke = `${strokeAmount}px black`;
+            });
+        });
+    </script>
+
+    <script>
+        const d = document.querySelector(".days_time");
+        const h = document.querySelector(".hours_time");
+        const m = document.querySelector(".min_time");
+        const s = document.querySelector(".sec_time");
+        function pad(value) {
+            return value.toString().padStart(2, "0");
+        }
+
+        const timestampParam = new URLSearchParams(window.location.search).get(
+            "time"
+        );
+        var startTimeUnix = timestampParam
+            ? Date.parse(timestampParam) / 1000
+            : Date.parse(new Date().toISOString()) / 1000;
+
+        function checkDate() {
+            const getDays = Math.floor(
+                (Math.floor(Date.now() / 1000) - startTimeUnix) / 86400
+            );
+            console.log(getDays);
+            
+            if (getDays > 0) {
+                document.querySelector(".daysContaienr").classList.remove("hidden");
+            }
+        }
+
+        function updateTimer() {
+            checkDate();
+            var currentTime = Math.floor(Date.now() / 1000);
+            var elapsedTime = currentTime - startTimeUnix;
+
+            var days = Math.floor(elapsedTime / 86400);
+            var hours = Math.floor((elapsedTime % 86400) / 3600);
+            var minutes = Math.floor((elapsedTime % 3600) / 60);
+            var seconds = elapsedTime % 60;
+
+            d.textContent = pad(days);
+            h.textContent = pad(hours);
+            m.textContent = pad(minutes);
+            s.textContent = pad(seconds);
+        }
+
+        updateTimer();
+
+        setInterval(updateTimer, 100);
+    </script>
+</body>
+
+</html>
