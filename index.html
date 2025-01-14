@@ -84,7 +84,16 @@
             }
         }
 
-        const timestampParam = new URLSearchParams(window.location.search).get("time");
+        let timestampParam = new URLSearchParams(window.location.search)
+
+        if (!timestampParam.has("time")) {
+            window.location.search = `${window.location.search
+                }?time=${new Date().toISOString()}`;
+        }
+
+        timestampParam = timestampParam.get("time")
+
+
         var startTimeUnix = timestampParam
             ? Date.parse(timestampParam) / 1000
             : Date.parse(new Date().toISOString()) / 1000;
