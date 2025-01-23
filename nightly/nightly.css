@@ -10,7 +10,7 @@ body {
 }
 
 .container {
-    
+
     transition: all 1s ease-in;
     display: grid;
     grid-template-columns: repeat(3, 1fr);
@@ -18,10 +18,14 @@ body {
     gap: 0px 0px;
     grid-auto-flow: row;
     grid-template-areas:
-    "hours_time min_time sec_time"
-    "hours min sec";
+        "hours_time min_time sec_time"
+        "hours min sec";
     justify-content: space-evenly;
     overflow: hidden;
+    background: url("./RDR2-3307462886.png") no-repeat;
+    -webkit-background-clip: text;
+    background-clip: text;
+    color: transparent;
 }
 
 .hours_time {
@@ -49,14 +53,14 @@ body {
 }
 
 .num {
-    
-    color: rgba(101, 150, 159);
+
+    /* color: rgba(101, 150, 159); */
     /* text-shadow: 2px 2px 10px rgba(255, 255, 255, 0.9), 0px 0px 5px rgba(255, 255, 255, 0.8); */
-    -webkit-text-stroke: 2px #4A5E79;
+    /* -webkit-text-stroke: 2px #4A5E79; */
     text-align: center;
     font-size: 4cm;
     font-weight: 600;
-    animation: jello-load 1s ease-in 0s 1 normal none;
+    /* animation: jello-load 1s ease-in 0s 1 normal none; */
 }
 
 @keyframes jello-load {
@@ -90,7 +94,7 @@ body {
 }
 
 .telem {
-    color: #79ADAB;
+    /* color: #79ADAB; */
     /* -webkit-text-stroke: 2px #FF3434; */
     text-align: center;
     font-size: calc(0.3 * 4cm);

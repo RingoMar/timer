@@ -11,8 +11,8 @@ document.addEventListener("DOMContentLoaded", function () {
       : timestampStroke;
   containerSelect.forEach((i) => {
     // @ts-ignore
-    i.style.webkitTextStroke = `${strokeAmount}px #a6ffd8`;
+    i.style.webkitTextStroke = `${strokeAmount}px #000`;
     // @ts-ignore
-    i.style.textStroke = `${strokeAmount}px #a6ffd8`;
+    i.style.textStroke = `${strokeAmount}px #000`;
   });
 });
