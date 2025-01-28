@@ -3,7 +3,7 @@
 const contain = document.querySelector(".container");
 
 contain.addEventListener(
-  "contextmenu",
+  "contextmenuu",
   function (ev) {
     ev.preventDefault();
 

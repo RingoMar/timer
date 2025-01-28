@@ -23,6 +23,7 @@
     <link rel="shortcut icon" href="../favicon.ico" type="image/x-icon" />
     <title>Elapsed Timer - Nightly</title>
     <link rel="stylesheet" href="./nightly.css" />
+    <link rel="stylesheet" href="./flex.css" />
 
     <script async src="https://www.googletagmanager.com/gtag/js?id=G-0GS2KLZXCG"></script>
     <script>
@@ -38,12 +39,39 @@
 
 <body>
     <div class="container">
-        <div class="hours_time num">00</div>
-        <div class="min_time num">00</div>
-        <div class="sec_time num">00</div>
+        <div class="hours_time1 num">00</div>
+        <div class="min_time1 num">00</div>
+        <div class="sec_time1 num">00</div>
         <div class="hours telem">HOURS</div>
-        <div class="min telem">MINUTES</div>
+        <div class="min telem ">MINUTES</div>
         <div class="sec telem">SECONDS</div>
+    </div>
+
+    <div class="Flexcontainer">
+        <div class="hoursBox">
+            <div class="hours_time fnum">00</div>
+            <div class="hours telem">HOURS</div>
+        </div>
+        <div class="spacer fnum">:</div>
+
+
+        <div class="minuteBox">
+            <div class="min_time fnum">00</div>
+            <div class="min telem ">MINUTES</div>
+        </div>
+        <div class="spacer fnum">:</div>
+
+        <div class="secondBox">
+            <div class="sec_time fnum">00</div>
+            <div class="sec telem">SECONDS</div>
+        </div>
+
+    </div>
+
+    <div class="infoCenter">
+        <button type="button" onclick="toogleSpacer();">Spacer</button>
+        <button type="button" onclick="toogleDial();"> remove dial</button>
+        <h1><- test</h1>
     </div>
 
     <script src="./urlMods.js"></script>
@@ -51,15 +79,47 @@
     <script src="./modifactions.js"></script>
 
     <script>
+        function toogleDial() {
+            var dialItem = document.querySelectorAll('.telem')
+            dialItem.forEach(d => {
+                d.classList.toggle('hidden');
+            });
+        }
+
+
+        function toogleSpacer() {
+            var spacerItem = document.querySelectorAll('.spacer')
+            spacerItem.forEach(spc => {
+                spc.classList.toggle('hidden');
+            });
+        }
+    </script>
+
+    <script>
         const h = document.querySelector(".hours_time");
         const m = document.querySelector(".min_time");
         const s = document.querySelector(".sec_time");
+        const h1 = document.querySelector(".hours_time1");
+        const m1 = document.querySelector(".min_time1");
+        const s1 = document.querySelector(".sec_time1");
         function pad(num) {
+            num = Number(num);
+
+            if (isNaN(num)) {
+                return "00";
+            }
+
+            if (num < 0) {
+                return "-01";
+            }
+
             if (num === -1) {
                 return "00";
-            } else {
-                return (num < 10 ? "0" : "") + Math.round(num);
             }
+
+            let roundedNum = Math.round(num).toString();
+
+            return (roundedNum.length === 1 ? "0" : "") + roundedNum;
         }
 
         let timestampParam = new URLSearchParams(window.location.search);
@@ -82,13 +142,13 @@
             if (stopParam) {
                 const parsedTime = Date.parse(stopParam);
                 if (!isNaN(parsedTime)) {
-                    currentTime = parsedTime / 1000; // Convert milliseconds to seconds
+                    currentTime = parsedTime / 1000;
                 } else {
                     console.error("Invalid date format for stopParam:", stopParam);
-                    currentTime = Math.floor(Date.now() / 1000); // Fallback to current time
+                    currentTime = Math.floor(Date.now() / 1000);
                 }
             } else {
-                currentTime = Math.floor(Date.now() / 1000); // Fallback to current time
+                currentTime = Math.floor(Date.now() / 1000);
             }
 
             // Calculate elapsed time
@@ -98,14 +158,18 @@
             var minutes = Math.floor((elapsedTime % 3600) / 60);
             var seconds = elapsedTime % 60;
 
+
             h.textContent = pad(hours);
             m.textContent = pad(minutes);
             s.textContent = pad(seconds);
+            h1.textContent = pad(hours);
+            m1.textContent = pad(minutes);
+            s1.textContent = pad(seconds);
         }
 
         updateTimer();
 
-        setInterval(updateTimer, 1000);
+        setInterval(updateTimer, 100);
     </script>
 </body>
 
